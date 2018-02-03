@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import com.mysupermarket.pojo.UserAccount;
 import net.sf.json.JSONObject;
 
 @Controller
+@Scope("prototype")
 public class Register {
 	
 	private Log logger = LogFactory.getLog(getClass());
@@ -29,12 +31,12 @@ public class Register {
 	@RequestMapping(value = "register")
 	public void SaveAccount(@RequestParam("account")String account, HttpServletResponse response){
 		
-		//从请求中获取注册账号,密码,邮箱
+		//浠庤姹備腑鑾峰彇娉ㄥ唽璐﹀彿,瀵嗙爜,閭
 		JSONObject json_account = JSONObject.fromObject(account);
 		int username = (Integer)json_account.get("username");
 		String email = (String)json_account.get("email");
 		String password = (String)json_account.get("password");
-		logger.info("获取的账号为 : " + username + " 获取到的email为 : " + email + " 获取到的password为 : " + password);
+		logger.info("鑾峰彇鐨勮处鍙蜂负 : " + username + " 鑾峰彇鍒扮殑email涓� : " + email + " 鑾峰彇鍒扮殑password涓� : " + password);
 		
 		UserAccount userAccount = new UserAccount();
 		userAccount.setUaUsername(username);
@@ -44,7 +46,7 @@ public class Register {
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, String> info = new HashMap<String, String>();
 		
-		//调用service层执行注册业务
+		//璋冪敤service灞傛墽琛屾敞鍐屼笟鍔�
 		int status;
 		status = saveUserAccountService.Save(userAccount);
 		if(status == 1){
@@ -54,7 +56,7 @@ public class Register {
 		}
 		result.put("info", info);
 		
-		//调用HttpServletResponse 响应返回结果
+		//璋冪敤HttpServletResponse 鍝嶅簲杩斿洖缁撴灉
 		response.setContentType("text/json;charset=utf-8");
 		response.setHeader("Cache-Control", "no-cache");
 		PrintWriter out = null;
@@ -66,7 +68,7 @@ public class Register {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			logger.info("获取PrintWriter出错");
+			logger.info("鑾峰彇PrintWriter鍑洪敊");
 		}
 		
 	}

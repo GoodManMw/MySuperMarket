@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,6 +22,7 @@ import com.mysupermarket.pojo.PayAccount;
 import net.sf.json.JSONObject;
 
 @Controller
+@Scope("prototype")
 public class GetPayAccount {
 
 	private Log logger = LogFactory.getLog(getClass());
@@ -41,7 +43,7 @@ public class GetPayAccount {
 		if(username != 0){
 			payAccount = getPayAccountService.GetByUsername(username);
 			if(payAccount != null){
-//				logger.info("获取到的支付账户是 : " + payAccount.getpAccount());
+//				logger.info("鑾峰彇鍒扮殑鏀粯璐︽埛鏄� : " + payAccount.getpAccount());
 				payaccount.put("pay_account", String.valueOf(payAccount.getpAccount()));
 			}else{
 				payaccount.put("pay_account", "noexist");
@@ -62,7 +64,7 @@ public class GetPayAccount {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			logger.info("获取printwriter出异常了");
+			logger.info("鑾峰彇printwriter鍑哄紓甯镐簡");
 		}
 		
 	}

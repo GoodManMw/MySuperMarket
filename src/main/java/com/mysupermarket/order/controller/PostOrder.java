@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +27,7 @@ import com.mysupermarket.pojo.ReceiveInfo;
 import net.sf.json.JSONObject;
 
 @Controller
+@Scope("prototype")
 public class PostOrder {
 		
 	private Log logger  = LogFactory.getLog(getClass());
@@ -46,8 +48,8 @@ public class PostOrder {
 		String choose = "";
 		List<JSONObject> list = (List<JSONObject>) json_order.get("choose");
 		for(JSONObject list_item : list){
-			logger.info("类型的名称为 : " + list_item.getString("choose_name"));
-			logger.info("类型的值为 : " + list_item.getString("choose_value"));
+			logger.info("绫诲瀷鐨勫悕绉颁负 : " + list_item.getString("choose_name"));
+			logger.info("绫诲瀷鐨勫�间负 : " + list_item.getString("choose_value"));
 			choose = choose + list_item.getString("choose_name") + ":" + list_item.getString("choose_value") + ";";
 		}
 		int good_num = json_order.getInt("good_num");
@@ -71,7 +73,7 @@ public class PostOrder {
 		postIndent.setiDate(year + "-" + month + "-" + day);
 		
 		
-		logger.info("获取的时间是 : " + year + "-" + month + "-" + day);
+		logger.info("鑾峰彇鐨勬椂闂存槸 : " + year + "-" + month + "-" + day);
 		logger.info("userAccount : " + username);
 		logger.info("goodid : " + good_id);
 		logger.info("payAccount : " + pay_account);
@@ -89,38 +91,38 @@ public class PostOrder {
 		Map<String, String> info = new HashMap<String, String>();
 		
 		int pay_status = postOrderService.VerifyPayAccount(payAccount);
-		if(pay_status == 1){//支付账号验证通过
+		if(pay_status == 1){//鏀粯璐﹀彿楠岃瘉閫氳繃
 			
 			info.put("pay_status", "success");
 			
-			//订单提交业务
+			//璁㈠崟鎻愪氦涓氬姟
 			int postOrderStatus = postOrderService.PostOrder(postIndent, payAccount, receiveInfo);
-			if(postOrderStatus == 1){//订单提交成功
+			if(postOrderStatus == 1){//璁㈠崟鎻愪氦鎴愬姛
 				info.put("post_status", "success");
 				info.put("status", "success");
-			}else if(postOrderStatus == 0){//账户余额不足
+			}else if(postOrderStatus == 0){//璐︽埛浣欓涓嶈冻
 				info.put("post_status", "notsufficientfunds");
 				info.put("status", "error");
-			}else if(postOrderStatus == -1){//收获信息出错
+			}else if(postOrderStatus == -1){//鏀惰幏淇℃伅鍑洪敊
 				info.put("post_status", "errorreceiveinfo");
 				info.put("status", "error");
-			}else if(postOrderStatus == -2){//支付异常
+			}else if(postOrderStatus == -2){//鏀粯寮傚父
 				info.put("post_status", "payexception");
 				info.put("status", "error");
-			}else{//未知错误
+			}else{//鏈煡閿欒
 				info.put("post_status", "unknown");
 				info.put("status", "error");
 			}
 			
-		}else if(pay_status == 0){//支付密码出错
+		}else if(pay_status == 0){//鏀粯瀵嗙爜鍑洪敊
 			info.put("pay_status", "frozenpayaccount");
 			info.put("post_status","error");
 			info.put("status", "error");
-		}else if(pay_status == -1){//支付账户已被冻结
+		}else if(pay_status == -1){//鏀粯璐︽埛宸茶鍐荤粨
 			info.put("pay_status", "errorpaypassword");
 			info.put("post_status","error");
 			info.put("status", "error");
-		}else{//不存在该支付账户
+		}else{//涓嶅瓨鍦ㄨ鏀粯璐︽埛
 			info.put("pay_status", "noexistpayaccount");
 			info.put("post_status","error");
 			info.put("status", "error");
@@ -139,7 +141,7 @@ public class PostOrder {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			logger.info("获取PrintWriter出错");
+			logger.info("鑾峰彇PrintWriter鍑洪敊");
 		}
 		
 	}

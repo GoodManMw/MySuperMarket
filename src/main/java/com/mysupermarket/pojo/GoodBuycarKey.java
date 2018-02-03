@@ -25,6 +25,9 @@ public class GoodBuycarKey {
      *
      * @mbggenerated Sun Aug 06 09:44:18 CST 2017
      */
+    
+    private String gbcGoodchoose;
+    
     public Integer getGbcBuycar() {
         return gbcBuycar;
     }
@@ -64,4 +67,13 @@ public class GoodBuycarKey {
     public void setGbcGood(Integer gbcGood) {
         this.gbcGood = gbcGood;
     }
+    
+	public String getGbcGoodchoose() {
+		return gbcGoodchoose;
+	}
+
+	public void setGbcGoodchoose(String gbcGoodchoose) {
+		this.gbcGoodchoose = gbcGoodchoose;
+	}
+    
 }

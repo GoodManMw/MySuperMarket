@@ -14,11 +14,26 @@
 		<script type="text/javascript" src = "js/jquery-3.2.1.js"></script>
 		
 		<script type="text/javascript">
+		
+		var jsonData = {  
+            "id" : "3115004874",  
+            "name" : "黄铭尉"  
+   		 };
+		$.ajax({
+			        type:'post',
+			        url:'jsonRequest.spring',
+			        contentType:'application/json;charset=utf-8',//指定为json类型
+        			//数据格式是json串，商品信息
+        			data:JSON.stringify(jsonData),
+			        success:function(data){//返回json结果
+			            console.log(data.name);
+			        }     
+				});
 			
 			var datatopost = "{'name' : '黄铭尉', 'phone' : 1562640437, 'address' : '广州大学城广东工业大学生活西区三栋205', 'shop_id' : 1, 'good_id' : 3, 'choose' : [{'choose_name' : '颜色', 'choose_value' : '蓝色'},{'choose_name' : '尺码', 'choose_value' : 30}],'good_num' : 1, 'sum_price' : 45, 'good_comment' : '', 'pay_account' : 1562640437, 'pay_password' : '123456'}";
 		
 			$(document).ready(function(){
-				
+			
 				$('#clickme').click(function(){
 					$.post("postorder.spring", {
 						

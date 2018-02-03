@@ -1,2 +1,7 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/mysupermarket/login/controller/ForgetPassword.java=UTF-8
 encoding//src/main/java/com/mysupermarket/login/controller/Login.java=UTF-8
+encoding//src/main/java/com/mysupermarket/login/controller/Register.java=UTF-8
+encoding//src/main/java/com/mysupermarket/order/controller/GetPayAccount.java=UTF-8
+encoding//src/main/java/com/mysupermarket/order/controller/GetReceiveInfo.java=UTF-8
+encoding//src/main/java/com/mysupermarket/order/controller/PostOrder.java=UTF-8

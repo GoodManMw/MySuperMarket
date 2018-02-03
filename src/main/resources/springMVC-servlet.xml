@@ -19,6 +19,9 @@
   http://www.springframework.org/schema/context
   http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
+	<!-- 配置SpringMVC注解驱动 -->
+	<mvc:annotation-driven />
+
 	<!--代码扫描包中带有@Controller注解的控制层类-->
 	<context:component-scan base-package="com.mysupermarket.login.controller"/>
 	<context:component-scan base-package="com.mysupermarket.gooddata.controller"/>

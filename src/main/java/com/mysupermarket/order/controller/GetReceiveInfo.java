@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,6 +22,7 @@ import com.mysupermarket.pojo.ReceiveInfo;
 import net.sf.json.JSONObject;
 
 @Controller
+@Scope("prototype")
 public class GetReceiveInfo {
 	
 	private Log logger = LogFactory.getLog(getClass());
@@ -38,9 +40,9 @@ public class GetReceiveInfo {
 		Map<String, String> info = new HashMap<String, String>();
 		
 		if(receiveInfo != null){
-			logger.info("获取到的收货人姓名是 : " + receiveInfo.getrName());
-			logger.info("获取到的收货人的地址是 : " + receiveInfo.getrAddress());
-			logger.info("获取到的收货人的电话是 : " + receiveInfo.getrPhone());
+			logger.info("鑾峰彇鍒扮殑鏀惰揣浜哄鍚嶆槸 : " + receiveInfo.getrName());
+			logger.info("鑾峰彇鍒扮殑鏀惰揣浜虹殑鍦板潃鏄� : " + receiveInfo.getrAddress());
+			logger.info("鑾峰彇鍒扮殑鏀惰揣浜虹殑鐢佃瘽鏄� : " + receiveInfo.getrPhone());
 			info.put("name", receiveInfo.getrName());
 			info.put("phone", String.valueOf(receiveInfo.getrPhone()));
 			info.put("address", receiveInfo.getrAddress());			
@@ -58,7 +60,7 @@ public class GetReceiveInfo {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			logger.info("获取PrintWriter出错");
+			logger.info("鑾峰彇PrintWriter鍑洪敊");
 		}
 		
 	}

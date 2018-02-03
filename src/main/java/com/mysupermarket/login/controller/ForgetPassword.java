@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +20,7 @@ import com.mysupermarket.login.service.ForgetPasswordService;
 import net.sf.json.JSONObject;
 
 @Controller
+@Scope("prototype")
 public class ForgetPassword {
 	
 	Log logger = LogFactory.getLog(getClass());
@@ -32,7 +34,7 @@ public class ForgetPassword {
 		int username = (Integer)json_info.get("username");
 		String email = (String)json_info.get("email");
 		String newpassword = (String)json_info.get("newpassword");
-		logger.info("获取到的额username是 : " + username + " 获取到的email是 : " + email + " 获取到的newpassword是 : " + newpassword);
+		logger.info("鑾峰彇鍒扮殑棰漸sername鏄� : " + username + " 鑾峰彇鍒扮殑email鏄� : " + email + " 鑾峰彇鍒扮殑newpassword鏄� : " + newpassword);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		Map<String, String> info_map = new HashMap<String, String>();
@@ -55,7 +57,7 @@ public class ForgetPassword {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			logger.info("获取PrintWriter出错");
+			logger.info("鑾峰彇PrintWriter鍑洪敊");
 		}
 		
 	}

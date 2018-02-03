@@ -1,28 +1,27 @@
 package com.mysupermarket.login.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mysupermarket.login.service.CheckUserAccountService;
 
 import net.sf.json.JSONObject;
 
 @Controller
-@Transactional
+@Scope("prototype")
 public class Login {
 	
 	private final Log logger = LogFactory.getLog(getClass());
@@ -36,7 +35,7 @@ public class Login {
 	 * return : json
 	 * */
 	@RequestMapping(value = "login")
-	public void CheckUserAccount(@RequestParam("account")String account, HttpServletRequest request, HttpServletResponse response){
+	public @ResponseBody Map CheckUserAccount(@RequestParam("account")String account, HttpServletRequest request){
 		
 		JSONObject json_account = JSONObject.fromObject(account);//从请求中获取账号信息
 		int username = (Integer)json_account.get("username");
@@ -61,18 +60,6 @@ public class Login {
 			info_json.put("status", "noexitaccount");
 		}
 		result.put("info", info_json);
-		response.setContentType("text/json;charset=utf-8");
-		response.setHeader("Cache-Control", "no-cache");
-		PrintWriter out = null;
-		try {
-			out = response.getWriter();
-			out.print(JSONObject.fromObject(result));
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			logger.info("获取PrintWriter出错");
-		}
+		return result;
 	}
 }
